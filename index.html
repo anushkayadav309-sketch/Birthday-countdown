@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birthday Countdown</title>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#0f172a;color:#f8fafc;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px}
+    .card{max-width:560px;width:100%;background:#1e293b;border-radius:24px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h1{margin:0 0 10px;font-size:24px}
+    .sub{color:#94a3b8;margin-bottom:18px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .box{background:#0b1220;border:1px solid rgba(148,163,184,.2);border-radius:18px;padding:14px;text-align:center}
+    .num{font-size:28px;font-weight:800;color:#fb7185}
+    .lab{font-size:12px;color:#94a3b8;margin-top:6px;letter-spacing:.6px;text-transform:uppercase}
+    .footer{margin-top:18px;color:#94a3b8;font-size:13px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎉 Birthday Countdown 🎉</h1>
+    <div class="sub">Counting down to <b>8 March 2026, 12:00 AM (IST)</b></div>
+
+    <div class="grid">
+      <div class="box"><div class="num" id="d">—</div><div class="lab">Days</div></div>
+      <div class="box"><div class="num" id="h">—</div><div class="lab">Hours</div></div>
+      <div class="box"><div class="num" id="m">—</div><div class="lab">Minutes</div></div>
+      <div class="box"><div class="num" id="s">—</div><div class="lab">Seconds</div></div>
+    </div>
+
+    <div class="footer">
+      <div id="msg">✨</div>
+      <div>Share this link with anyone ✅</div>
+    </div>
+  </div>
+
+  <script>
+    // Target: 8 March 2026, 12:00 AM IST
+    // IST is UTC+05:30, so target UTC time = 2026-03-07 18:30:00Z
+    const targetUtcMs = Date.UTC(2026, 2, 7, 18, 30, 0);
+
+    const pad2 = n => String(n).padStart(2, "0");
+
+    function tick(){
+      const now = Date.now();
+      let diff = targetUtcMs - now;
+
+      if (diff <= 0){
+        document.getElementById("d").textContent = "0";
+        document.getElementById("h").textContent = "00";
+        document.getElementById("m").textContent = "00";
+        document.getElementById("s").textContent = "00";
+        document.getElementById("msg").textContent = "🎂 Happy Birthday! 🎉";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000*60*60*24));
+      diff %= (1000*60*60*24);
+      const hours = Math.floor(diff / (1000*60*60));
+      diff %= (1000*60*60);
+      const mins = Math.floor(diff / (1000*60));
+      diff %= (1000*60);
+      const secs = Math.floor(diff / 1000);
+
+      document.getElementById("d").textContent = days;
+      document.getElementById("h").textContent = pad2(hours);
+      document.getElementById("m").textContent = pad2(mins);
+      document.getElementById("s").textContent = pad2(secs);
+      document.getElementById("msg").textContent = "⏳ Time left…";
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
