@@ -130,6 +130,13 @@ h2{font-weight:300;margin-bottom:10px;}
 </div>
 
 <script>
+  function playMusic() {
+  const audio = document.getElementById("music");
+  audio.volume = 0.8;
+  audio.play().catch(() => {
+    alert("Tap Play Music again 🎵");
+  });
+}
 // 🎂 CHANGE BIRTHDAY DATE HERE
 const birthday = new Date("2026-03-15T00:00:00").getTime();
 
